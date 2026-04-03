@@ -25,6 +25,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/intense
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
   frontend:
     build: ./frontend
@@ -33,6 +34,7 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+    command: npm run dev -- --host
 
 volumes:
   db_data:

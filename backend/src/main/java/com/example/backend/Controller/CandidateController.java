@@ -2,6 +2,7 @@ package com.example.backend.Controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.Model.Candidate;
+import com.example.backend.Model.CreateCandidateDto;
 import com.example.backend.Service.CandidateService;
 
 @RestController
@@ -26,10 +29,22 @@ public class CandidateController {
     }
 
     @GetMapping
-    public List<Candidate> getAll() {
-        return candidateService.findAll();
+    public ResponseEntity<Page<Candidate>> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return ResponseEntity.ok(candidateService.findAll(page, size));
     }
-
+    
+    @GetMapping("/search")
+    public ResponseEntity<Page<Candidate>> search(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) List<Long> skills,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return ResponseEntity.ok(candidateService.search(name, skills, page, size));
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Candidate> getById(@PathVariable Long id) {
         try {
@@ -40,11 +55,10 @@ public class CandidateController {
     }
 
     @PostMapping
-    public ResponseEntity<Candidate> create(@RequestBody Candidate candidate) {
-        candidateService.save(candidate);
-        return ResponseEntity.ok(candidate);
+    public ResponseEntity<Candidate> create(@RequestBody CreateCandidateDto dto) {
+        Candidate saved = candidateService.create(dto);
+        return ResponseEntity.status(201).body(saved); 
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<Candidate> update(@PathVariable Long id,@RequestBody Candidate updated) {
         try {
@@ -63,4 +77,15 @@ public class CandidateController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/search/name")
+    public ResponseEntity<List<Candidate>> searchByName(
+            @RequestParam(name = "query", required = false, defaultValue = "") String name) {
+
+        List<Candidate> results = candidateService.searchByName(name);
+        return ResponseEntity.ok(results);
+    }
+
+ 
+   
 }
