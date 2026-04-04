@@ -93,8 +93,5 @@ export async function update(id: number, data: any) {
       : `${BASE_URL}?page=${page}&size=${size}`;
   
     const res = await fetch(url);
-  
-   
-  
     return res.json();
   }

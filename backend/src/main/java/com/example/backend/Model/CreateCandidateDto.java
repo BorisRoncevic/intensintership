@@ -5,15 +5,33 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class CreateCandidateDto {
 
+    @NotBlank(message = "Full name is required")
+    @Size(min = 3, max = 100, message = "From 3 to 100 char")
     private String fullName;
-    private String email;
-    private String contactNumber;
-    @JsonFormat(pattern = "yyyy-MM-dd")
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    private String email;
+
+    @NotBlank(message = "Contact number is required")
+    @Pattern(regexp = "^[0-9+\\- ]{6,20}$", message = "Invalid phone number")
+    private String contactNumber;
+
+    @NotNull(message = "Date of birth is required")
+    @Past(message = "Date of birth must be in the past")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    private List<Long> skillIds;  
+
+    private List<Long> skillIds;
 
     public CreateCandidateDto() {}
 

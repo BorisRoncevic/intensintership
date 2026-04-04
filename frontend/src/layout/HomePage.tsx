@@ -2,17 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./NavBar";
 import { fetchCandidatesApi } from "../api/candidateApi";
-
-type Skill = {
-  id: number;
-  name: string;
-};
-
-type Candidate = {
-  id: number;
-  fullName: string;
-  skills: Skill[];
-};
+import { Candidate } from "../model/model";
+import "../style/HomePage.css";
 
 export default function HomePage() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -25,7 +16,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      fetchCandidatesApi(name, skills, page, 20)
+      fetchCandidatesApi(name, skills, page, 5)
         .then((data) => {
           if (Array.isArray(data)) {
             setCandidates(data);
@@ -55,41 +46,42 @@ export default function HomePage() {
         }}
       />
 
-      <div>
-        {candidates.map((c) => (
-          <div
-            key={c.id}
-            onClick={() => navigate(`/candidates/${c.id}`)}
-            style={{
-              border: "1px solid gray",
-              margin: 10,
-              padding: 10,
-              cursor: "pointer",
-            }}
-          >
-            <h3>{c.fullName}</h3>
+      <div className="home">
+        <div className="home-container">
+
+          <div className="candidate-list">
+            {candidates.map((c) => (
+              <div
+                key={c.id}
+                onClick={() => navigate(`/candidates/${c.id}`)}
+                className="candidate-card"
+              >
+                <h3 className="candidate-name">{c.fullName}</h3>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div style={{ marginTop: 20 }}>
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          disabled={page === 0}
-        >
-          Previous
-        </button>
+          <div className="pagination">
+            <button
+              onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+              disabled={page === 0}
+            >
+              Previous
+            </button>
 
-        <span style={{ margin: "0 12px" }}>
-          Page {page + 1} of {Math.max(totalPages, 1)}
-        </span>
+            <span>
+              Page {page + 1} of {Math.max(totalPages, 1)}
+            </span>
 
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          disabled={page + 1 >= totalPages}
-        >
-          Next
-        </button>
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={page + 1 >= totalPages}
+            >
+              Next
+            </button>
+          </div>
+
+        </div>
       </div>
     </>
   );

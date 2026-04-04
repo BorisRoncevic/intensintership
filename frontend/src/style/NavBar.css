@@ -1,0 +1,58 @@
+.navbar {
+    background: #18181d;
+    color: rgb(218, 218, 218);
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .navbar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .filter.active {
+    background: #4c6ef5;
+    color: white;
+  }
+  .search {
+    flex: 1;
+    max-width: 300px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+  }
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  .actions button {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #4c6ef5;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .actions button:hover {
+    background: #3b5bdb;
+  }
+  .navbar-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .filter {
+    border: none;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #2c2c3e;
+    color: #ccc;
+    transition: 0.2s;
+  }
+  

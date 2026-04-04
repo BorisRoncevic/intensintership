@@ -18,6 +18,8 @@ import com.example.backend.Model.Candidate;
 import com.example.backend.Model.CreateCandidateDto;
 import com.example.backend.Service.CandidateService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/candidates")
 public class CandidateController {
@@ -55,7 +57,7 @@ public class CandidateController {
     }
 
     @PostMapping
-    public ResponseEntity<Candidate> create(@RequestBody CreateCandidateDto dto) {
+    public ResponseEntity<Candidate> create(@Valid@RequestBody CreateCandidateDto dto) {
         Candidate saved = candidateService.create(dto);
         return ResponseEntity.status(201).body(saved); 
     }

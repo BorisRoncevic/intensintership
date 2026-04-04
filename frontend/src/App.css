@@ -3,7 +3,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   color: var(--accent);
-  background: var(--accent-bg);
+  background: rgb(218, 211, 211);
   border: 2px solid transparent;
   transition: border-color 0.3s;
   margin-bottom: 24px;
@@ -119,7 +119,7 @@
     color: var(--text-h);
     font-size: 16px;
     border-radius: 6px;
-    background: var(--social-bg);
+    background: beige;
     display: flex;
     padding: 6px 12px;
     align-items: center;

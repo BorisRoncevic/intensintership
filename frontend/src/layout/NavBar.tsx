@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { getAllSkills } from "../api/skillsapi";
 import { useNavigate } from "react-router-dom";
+import "../style/NavBar.css";
+import { Skill } from "../model/model";
 
-type Skill = {
-  id: number;
-  name: string;
-};
 
 type Props = {
   onFilterChange: (name: string, skills: number[]) => void;
@@ -18,9 +16,7 @@ export default function Navbar({ onFilterChange }: Props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllSkills()
-      .then(setSkills)
-      .catch(console.error);
+    getAllSkills().then(setSkills).catch(console.error);
   }, []);
 
   const toggleSkill = (skillId: number) => {
@@ -38,37 +34,43 @@ export default function Navbar({ onFilterChange }: Props) {
   };
 
   return (
-    <div style={{ borderBottom: "1px solid gray", padding: 10 }}>
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={name}
-        onChange={(e) => handleNameChange(e.target.value)}
-        style={{ padding: 8, marginRight: 20 }}
-      />
+    <div className="navbar">
+      <div className="navbar-top">
+        <h2 className="logo">Candidates</h2>
 
-      {skills.map((skill) => (
-        <label key={skill.id} style={{ marginRight: 10 }}>
-          <input
-            type="checkbox"
-            checked={selectedSkills.includes(skill.id)}
-            onChange={() => toggleSkill(skill.id)}
-          />
-          {skill.name}
-        </label>
-      ))}
+        <input
+          type="text"
+          placeholder="Search..."
+          value={name}
+          onChange={(e) => handleNameChange(e.target.value)}
+          className="search"
+        />
 
-      <div style={{ marginTop: 10 }}>
-        <button
-          onClick={() => navigate("/create-candidate")}
-          style={{ marginRight: 10 }}
-        >
-          Add Candidate
-        </button>
+        <div className="actions">
+        <button onClick={() => navigate("/")}>
+    Home
+  </button>
 
-        <button onClick={() => navigate("/create-skill")}>
-          Add Skill
-        </button>
+  <button onClick={() => navigate("/create-candidate")}>
+    + Candidate
+  </button>
+
+  <button onClick={() => navigate("/create-skill")}>
+    + Skill
+  </button>
+        </div>
+      </div>
+
+      <div className="navbar-filters">
+        {skills.map((skill) => (
+          <button
+            key={skill.id}
+            className={`filter ${selectedSkills.includes(skill.id) ? "active" : ""}`}
+            onClick={() => toggleSkill(skill.id)}
+          >
+            {skill.name}
+          </button>
+        ))}
       </div>
     </div>
   );

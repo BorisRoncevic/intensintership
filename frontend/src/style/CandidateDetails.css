@@ -1,0 +1,83 @@
+.details-page {
+    background: #01040e;
+    min-height: 100vh;
+    padding: 30px;
+  }
+  .details-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgb(24, 25, 36);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+  }
+  .field {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  .field label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  .field input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  .field p {
+    margin: 0;
+  }
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skill-item {
+    background: #eef1ff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  .skill-badge {
+    background: #4c6ef5;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  
+  .actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #4c6ef5;
+    color: white;
+    cursor: pointer;
+  }
+  .actions .danger {
+    background: #e03131;
+  }
+  .actions button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  .loading {
+    padding: 20px;
+  }
